@@ -1,7 +1,5 @@
 github.com/davecgh/go-spew v1.1.0 h1:ZDRjVQ15GmhC3fiQ8ni8+OwkZQO4DARzQgrnXU1Liz8=
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
-github.com/docktermj/go-json-log-message v0.0.0-20220621012852-98bf4a26e37a h1:xfKaQ8cVQ9ccEu4QNrVKEPv4msCIC+A+E9RZP8E5Y50=
-github.com/docktermj/go-json-log-message v0.0.0-20220621012852-98bf4a26e37a/go.mod h1:gdXcuyLQRwMLeRFBXdtprtwDxaLpVgxaTTqqQ6XD6bs=
 github.com/jstemmer/go-junit-report v1.0.0 h1:8X1gzZpR+nVQLAht+L/foqOeX2l9DTZoaIPbEQHxsds=
 github.com/jstemmer/go-junit-report v1.0.0/go.mod h1:Brl9GWCQeLvo8nXZwPNNblvFj/XSXhF0NWZEnDohbsk=
 github.com/pmezard/go-difflib v1.0.0 h1:4DBwDE0NGyQoBHbLQYPwSUPoCMWR5BEzIk/f1lZbAQM=

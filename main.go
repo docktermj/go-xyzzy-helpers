@@ -24,7 +24,7 @@ const MessageIdFormat = "senzing-9999%04d"
 // ----------------------------------------------------------------------------
 
 func complexProcess() string {
-	time.Sleep(10 * time.Second)
+	time.Sleep(1000 * time.Second)
 	return "slept"
 }
 
@@ -42,7 +42,12 @@ func main() {
 
 	logger.SetLevel(logger.LevelInfo)
 
-	// Use the log and logger interchangeably
+	// Log a message.
+
+	logger.LogMessage(MessageIdFormat, 2000, "Test message", "Variable1", "Variable2")
+
+	// The following demonstrates the low-level calls for
+	// Trace, Debug, Info, Warn, and Error.
 
 	log.Println("Test Trace")
 	logger.Trace("trace prints")
@@ -83,10 +88,6 @@ func main() {
 	log.Println("Test varadic")
 	_, err := time.LoadLocation("bob")
 	logger.Info("Should be error: ", err)
-
-	// Log a message
-
-	logger.LogMessage(MessageIdFormat, 2000, "Test message", "Variable1", "Variable2")
 
 	log.Println("End")
 

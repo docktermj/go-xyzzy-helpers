@@ -10,7 +10,7 @@ import (
 	"sort"
 	"strings"
 
-	errormsg "github.com/docktermj/go-json-log-message/message"
+	"github.com/docktermj/go-xyzzy-helpers/logmessage"
 )
 
 // ----------------------------------------------------------------------------
@@ -67,7 +67,7 @@ func BuildError(idTemplate string, errorNumber int, message string, details ...s
 
 // Build an error method.
 func (logger *Logger) BuildError(idTemplate string, errorNumber int, message string, details ...string) error {
-	errorMessage := errormsg.BuildMessage(
+	errorMessage := logmessage.BuildMessage(
 		logger.BuildMessageId(idTemplate, errorNumber),
 		logger.BuildMessageLevel(errorNumber, message),
 		message,
@@ -83,7 +83,7 @@ func BuildMessage(idTemplate string, errorNumber int, message string, details ..
 
 // Build log message method.
 func (logger *Logger) BuildMessage(idTemplate string, errorNumber int, message string, details ...string) string {
-	return errormsg.BuildMessage(
+	return logmessage.BuildMessage(
 		logger.BuildMessageId(idTemplate, errorNumber),
 		logger.BuildMessageLevel(errorNumber, message),
 		message,
