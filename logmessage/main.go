@@ -13,8 +13,9 @@ type Detail struct {
 }
 
 type Message struct {
-	Id      string      `json:"id"`
+	Id      string      `json:"id",omitempty`
 	Level   string      `json:"level,omitempty"`
 	Text    string      `json:"text,omitempty"`
 	Details interface{} `json:"details,omitempty"`
+	Error   interface{} `json:"error,omitempty"`
 }
