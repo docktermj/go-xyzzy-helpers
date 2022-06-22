@@ -1,6 +1,7 @@
 package logmessage
 
 import (
+	"errors"
 	"fmt"
 	"testing"
 
@@ -13,6 +14,36 @@ import (
 
 func TestBuildMessage(test *testing.T) {
 	actual := BuildMessage("A", "B", "C", "D")
+	fmt.Println(actual)
+	assert.NotEmpty(test, actual)
+}
+
+func TestBuildMessageFromError(test *testing.T) {
+
+	errorMessage1 := BuildMessage("A", "B", "C", "D")
+	error1 := errors.New(errorMessage1)
+
+	errorMessage2 := BuildMessageFromError("E", "F", "G", error1, "H")
+	error2 := errors.New(errorMessage2)
+
+	errorMessage3 := BuildMessageFromError("I", "J", "K", error2, "L")
+	actual := errors.New(errorMessage3)
+
+	fmt.Println(actual)
+	assert.NotEmpty(test, actual)
+}
+
+func TestBuildMessageFromErrorWithSimpleMessage(test *testing.T) {
+
+	error1 := errors.New("Simple error")
+
+	actual := BuildMessageFromError("A", "B", "C", error1, "D")
+	fmt.Println(actual)
+	assert.NotEmpty(test, actual)
+}
+
+func TestBuildMessageNoId(test *testing.T) {
+	actual := BuildMessage("", "B", "C", "D")
 	fmt.Println(actual)
 	assert.NotEmpty(test, actual)
 }
