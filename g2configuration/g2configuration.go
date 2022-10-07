@@ -69,6 +69,14 @@ func BuildSimpleSystemConfigurationJson(senzingDatabaseUrl string) (string, erro
 	var err error = nil
 
 	if len(senzingDatabaseUrl) == 0 {
+
+		// If SENZING_ENGINE_CONFIGURATION_JSON is set, use it.
+
+		senzingEngineConfigurationJson, err := getOsEnv("SENZING_ENGINE_CONFIGURATION_JSON")
+		if err == nil {
+			return senzingEngineConfigurationJson, err
+		}
+
 		senzingDatabaseUrl, err = getOsEnv("SENZING_TOOLS_DATABASE_URL")
 		if err != nil {
 			return "", err
