@@ -5,6 +5,7 @@ package logmessage
 
 import (
 	"encoding/json"
+	"fmt"
 	"strconv"
 )
 
@@ -23,12 +24,27 @@ func jsonAsInterface(unknownString string) interface{} {
 	return jsonString
 }
 
+func stringify(unknown interface{}) string {
+	var result string
+	switch value := unknown.(type) {
+	case string:
+		result = value
+	case int:
+		result = fmt.Sprintf("%d", value)
+	case error:
+		result = value.Error()
+	default:
+		result = fmt.Sprintf("%v", value)
+	}
+	return result
+}
+
 // ----------------------------------------------------------------------------
 // Interface methods
 // ----------------------------------------------------------------------------
 
 // Build a message given details as strings.
-func BuildMessage(id string, level string, text string, details ...string) string {
+func BuildMessage(id string, level string, text string, details ...interface{}) string {
 
 	resultStruct := Message{}
 
@@ -48,9 +64,9 @@ func BuildMessage(id string, level string, text string, details ...string) strin
 
 	// Construct details.
 
-	detailMap := make(map[string]interface{})
+	detailMap := make(map[string]string)
 	for index, value := range details {
-		detailMap[strconv.Itoa(index+1)] = value
+		detailMap[strconv.Itoa(index+1)] = stringify(value)
 	}
 
 	if len(details) > 0 {
@@ -63,7 +79,7 @@ func BuildMessage(id string, level string, text string, details ...string) strin
 }
 
 // Build a message from an error
-func BuildMessageFromError(id string, level string, text string, err error, details ...string) string {
+func BuildMessageFromError(id string, level string, text string, err error, details ...interface{}) string {
 
 	resultStruct := Message{}
 
@@ -83,9 +99,9 @@ func BuildMessageFromError(id string, level string, text string, err error, deta
 
 	// Construct details.
 
-	detailMap := make(map[string]interface{})
+	detailMap := make(map[string]string)
 	for index, value := range details {
-		detailMap[strconv.Itoa(index+1)] = value
+		detailMap[strconv.Itoa(index+1)] = stringify(value)
 	}
 
 	if len(details) > 0 {

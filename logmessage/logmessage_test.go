@@ -63,6 +63,12 @@ func TestBuildMessageNoLevel(test *testing.T) {
 	fmt.Println(actual)
 }
 
+func TestBuildMessageWithNonStrings(test *testing.T) {
+	myError := errors.New("Bob's error")
+	actual := BuildMessage("A", "myLevel", "myText", "aString", 1, 2.3, myError)
+	fmt.Println(actual)
+}
+
 func TestBuildMessageUsingMap(test *testing.T) {
 	detailsMap := map[string]string{
 		"FirstVariable":  "First value",
