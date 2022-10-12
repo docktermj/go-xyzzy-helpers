@@ -63,10 +63,22 @@ func TestBuildMessageNoLevel(test *testing.T) {
 	fmt.Println(actual)
 }
 
+func TestBuildMessageWithNonStrings(test *testing.T) {
+	myError := errors.New("Bob's error")
+	actual := BuildMessage("A", "myLevel", "myText", "aString", 1, 2.3, myError)
+	fmt.Println(actual)
+}
+
+func TestBuildMessageWithTest(test *testing.T) {
+	actual := BuildMessage("A", "myLevel", "myText", test)
+	fmt.Println(actual)
+}
+
 func TestBuildMessageUsingMap(test *testing.T) {
-	detailsMap := map[string]string{
+	detailsMap := map[string]interface{}{
 		"FirstVariable":  "First value",
 		"SecondVariable": "Second value",
+		"TestClass":      test,
 	}
 	actual := BuildMessageUsingMap("A", "B", "C", detailsMap)
 	fmt.Println(actual)
@@ -80,7 +92,7 @@ func TestParseMessage(test *testing.T) {
 }
 
 func TestParseMessageUsingMap(test *testing.T) {
-	detailsMap := map[string]string{
+	detailsMap := map[string]interface{}{
 		"FirstVariable":  "First value",
 		"SecondVariable": "Second value",
 	}

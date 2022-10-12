@@ -5,6 +5,8 @@ package logmessage
 
 import (
 	"encoding/json"
+	"fmt"
+	"reflect"
 	"strconv"
 )
 
@@ -23,16 +25,36 @@ func jsonAsInterface(unknownString string) interface{} {
 	return jsonString
 }
 
+func stringify(unknown interface{}) string {
+	// See https://pkg.go.dev/fmt for format strings.
+	var result string
+	switch value := unknown.(type) {
+	case string:
+		result = value
+	case int:
+		result = fmt.Sprintf("%d", value)
+	case float64:
+		result = fmt.Sprintf("%g", value)
+	case bool:
+		result = fmt.Sprintf("%t", value)
+	case error:
+		result = value.Error()
+	default:
+		xType := reflect.TypeOf(unknown)
+		xValue := reflect.ValueOf(unknown)
+		result = fmt.Sprintf("(%s)%+v", xType, xValue)
+	}
+	return result
+}
+
 // ----------------------------------------------------------------------------
 // Interface methods
 // ----------------------------------------------------------------------------
 
 // Build a message given details as strings.
-func BuildMessage(id string, level string, text string, details ...string) string {
+func BuildMessage(id string, level string, text string, details ...interface{}) string {
 
 	resultStruct := Message{}
-
-	// Fill optional fields.
 
 	if len(id) > 0 {
 		resultStruct.Id = id
@@ -46,16 +68,14 @@ func BuildMessage(id string, level string, text string, details ...string) strin
 		resultStruct.Text = text
 	}
 
-	// Construct details.
-
-	detailMap := make(map[string]interface{})
-	for index, value := range details {
-		detailMap[strconv.Itoa(index+1)] = value
-	}
-
 	if len(details) > 0 {
+		detailMap := make(map[string]string)
+		for index, value := range details {
+			detailMap[strconv.Itoa(index+1)] = stringify(value)
+		}
 		resultStruct.Details = detailMap
 	}
+
 	// Convert to JSON.
 
 	result, _ := json.Marshal(resultStruct)
@@ -63,11 +83,9 @@ func BuildMessage(id string, level string, text string, details ...string) strin
 }
 
 // Build a message from an error
-func BuildMessageFromError(id string, level string, text string, err error, details ...string) string {
+func BuildMessageFromError(id string, level string, text string, err error, details ...interface{}) string {
 
 	resultStruct := Message{}
-
-	// Fill optional fields.
 
 	if len(id) > 0 {
 		resultStruct.Id = id
@@ -81,14 +99,11 @@ func BuildMessageFromError(id string, level string, text string, err error, deta
 		resultStruct.Text = text
 	}
 
-	// Construct details.
-
-	detailMap := make(map[string]interface{})
-	for index, value := range details {
-		detailMap[strconv.Itoa(index+1)] = value
-	}
-
 	if len(details) > 0 {
+		detailMap := make(map[string]string)
+		for index, value := range details {
+			detailMap[strconv.Itoa(index+1)] = stringify(value)
+		}
 		resultStruct.Details = detailMap
 	}
 
@@ -115,7 +130,7 @@ func BuildMessageFromError(id string, level string, text string, err error, deta
 }
 
 // Build a message given details as a map of strings.
-func BuildMessageFromErrorUsingMap(id string, level string, text string, err error, details map[string]string) string {
+func BuildMessageFromErrorUsingMap(id string, level string, text string, err error, details map[string]interface{}) string {
 
 	resultStruct := Message{}
 
@@ -134,7 +149,11 @@ func BuildMessageFromErrorUsingMap(id string, level string, text string, err err
 	}
 
 	if len(details) > 0 {
-		resultStruct.Details = details
+		detailMap := make(map[string]string)
+		for index, value := range details {
+			detailMap[index] = stringify(value)
+		}
+		resultStruct.Details = detailMap
 	}
 
 	// Nest prior Error message.
@@ -159,7 +178,7 @@ func BuildMessageFromErrorUsingMap(id string, level string, text string, err err
 }
 
 // Build a message given details as a map of strings.
-func BuildMessageUsingMap(id string, level string, text string, details map[string]string) string {
+func BuildMessageUsingMap(id string, level string, text string, details map[string]interface{}) string {
 
 	resultStruct := Message{}
 
@@ -178,7 +197,11 @@ func BuildMessageUsingMap(id string, level string, text string, details map[stri
 	}
 
 	if len(details) > 0 {
-		resultStruct.Details = details
+		detailMap := make(map[string]string)
+		for index, value := range details {
+			detailMap[index] = stringify(value)
+		}
+		resultStruct.Details = detailMap
 	}
 
 	// Convert to JSON.

@@ -49,7 +49,7 @@ func main() {
 
 	// Log a message using a map.
 
-	detailsMap := map[string]string{
+	detailsMap := map[string]interface{}{
 		"FirstVariable":  "First value",
 		"SecondVariable": "Second value",
 	}
@@ -57,7 +57,7 @@ func main() {
 
 	// Log an error based on a prior error.
 
-	anError := errors.New("This is a new error")
+	anError := errors.New("this is a new error")
 	logger.LogMessageFromError(MessageIdFormat, 2002, "Test message 3", anError, "Variable1", "Variable2")
 
 	// The following demonstrates the low-level calls for

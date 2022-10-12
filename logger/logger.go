@@ -65,12 +65,12 @@ func New() *Logger {
 // ----------------------------------------------------------------------------
 
 // Build an error function.
-func BuildError(idTemplate string, errorNumber int, message string, details ...string) error {
+func BuildError(idTemplate string, errorNumber int, message string, details ...interface{}) error {
 	return logger.BuildError(idTemplate, errorNumber, message, details...)
 }
 
 // Build an error method.
-func (logger *Logger) BuildError(idTemplate string, errorNumber int, message string, details ...string) error {
+func (logger *Logger) BuildError(idTemplate string, errorNumber int, message string, details ...interface{}) error {
 	errorMessage := logmessage.BuildMessage(
 		logger.BuildMessageId(idTemplate, errorNumber),
 		logger.BuildMessageLevel(errorNumber, message),
@@ -81,12 +81,12 @@ func (logger *Logger) BuildError(idTemplate string, errorNumber int, message str
 }
 
 // Build log message function.
-func BuildMessage(idTemplate string, errorNumber int, message string, details ...string) string {
+func BuildMessage(idTemplate string, errorNumber int, message string, details ...interface{}) string {
 	return logger.BuildMessage(idTemplate, errorNumber, message, details...)
 }
 
 // Build log message method.
-func (logger *Logger) BuildMessage(idTemplate string, errorNumber int, message string, details ...string) string {
+func (logger *Logger) BuildMessage(idTemplate string, errorNumber int, message string, details ...interface{}) string {
 	return logmessage.BuildMessage(
 		logger.BuildMessageId(idTemplate, errorNumber),
 		logger.BuildMessageLevel(errorNumber, message),
@@ -96,12 +96,12 @@ func (logger *Logger) BuildMessage(idTemplate string, errorNumber int, message s
 }
 
 // Build log message function.
-func BuildMessageFromError(idTemplate string, errorNumber int, message string, err error, details ...string) string {
+func BuildMessageFromError(idTemplate string, errorNumber int, message string, err error, details ...interface{}) string {
 	return logger.BuildMessageFromError(idTemplate, errorNumber, message, err, details...)
 }
 
 // Build log message method.
-func (logger *Logger) BuildMessageFromError(idTemplate string, errorNumber int, message string, anError error, details ...string) string {
+func (logger *Logger) BuildMessageFromError(idTemplate string, errorNumber int, message string, anError error, details ...interface{}) string {
 	return logmessage.BuildMessageFromError(
 		logger.BuildMessageId(idTemplate, errorNumber),
 		logger.BuildMessageLevel(errorNumber, message),
@@ -112,12 +112,12 @@ func (logger *Logger) BuildMessageFromError(idTemplate string, errorNumber int, 
 }
 
 // Build log message function.
-func BuildMessageFromErrorUsingMap(idTemplate string, errorNumber int, message string, err error, details map[string]string) string {
+func BuildMessageFromErrorUsingMap(idTemplate string, errorNumber int, message string, err error, details map[string]interface{}) string {
 	return logger.BuildMessageFromErrorUsingMap(idTemplate, errorNumber, message, err, details)
 }
 
 // Build log message method.
-func (logger *Logger) BuildMessageFromErrorUsingMap(idTemplate string, errorNumber int, message string, anError error, details map[string]string) string {
+func (logger *Logger) BuildMessageFromErrorUsingMap(idTemplate string, errorNumber int, message string, anError error, details map[string]interface{}) string {
 	return logmessage.BuildMessageFromErrorUsingMap(
 		logger.BuildMessageId(idTemplate, errorNumber),
 		logger.BuildMessageLevel(errorNumber, message),
@@ -128,12 +128,12 @@ func (logger *Logger) BuildMessageFromErrorUsingMap(idTemplate string, errorNumb
 }
 
 // Build log message function.
-func BuildMessageUsingMap(idTemplate string, errorNumber int, message string, details map[string]string) string {
+func BuildMessageUsingMap(idTemplate string, errorNumber int, message string, details map[string]interface{}) string {
 	return logger.BuildMessageUsingMap(idTemplate, errorNumber, message, details)
 }
 
 // Build log message method.
-func (logger *Logger) BuildMessageUsingMap(idTemplate string, errorNumber int, message string, details map[string]string) string {
+func (logger *Logger) BuildMessageUsingMap(idTemplate string, errorNumber int, message string, details map[string]interface{}) string {
 	return logmessage.BuildMessageUsingMap(
 		logger.BuildMessageId(idTemplate, errorNumber),
 		logger.BuildMessageLevel(errorNumber, message),
@@ -226,12 +226,12 @@ func (logger *Logger) LogBasedOnLevel(messageLevel string, messageJson string) {
 }
 
 // Inspect the error to see what the level is and log based on the level function.
-func LogMessage(idTemplate string, errorNumber int, message string, details ...string) error {
+func LogMessage(idTemplate string, errorNumber int, message string, details ...interface{}) error {
 	return logger.LogMessage(idTemplate, errorNumber, message, details...)
 }
 
 // Inspect the error to see what the level is and log based on the level method.
-func (logger *Logger) LogMessage(idTemplate string, errorNumber int, message string, details ...string) error {
+func (logger *Logger) LogMessage(idTemplate string, errorNumber int, message string, details ...interface{}) error {
 	var err error = nil
 	messageLevel := logger.BuildMessageLevel(errorNumber, message)
 	messageJson := logger.BuildMessage(idTemplate, errorNumber, message, details...)
@@ -240,12 +240,12 @@ func (logger *Logger) LogMessage(idTemplate string, errorNumber int, message str
 }
 
 // Inspect the error to see what the level is and log based on the level function.
-func LogMessageFromError(idTemplate string, errorNumber int, message string, err error, details ...string) error {
+func LogMessageFromError(idTemplate string, errorNumber int, message string, err error, details ...interface{}) error {
 	return logger.LogMessageFromError(idTemplate, errorNumber, message, err, details...)
 }
 
 // Inspect the error to see what the level is and log based on the level method.
-func (logger *Logger) LogMessageFromError(idTemplate string, errorNumber int, message string, anError error, details ...string) error {
+func (logger *Logger) LogMessageFromError(idTemplate string, errorNumber int, message string, anError error, details ...interface{}) error {
 	var err error = nil
 
 	messageLevel := logger.BuildMessageLevel(errorNumber, message)
@@ -255,12 +255,12 @@ func (logger *Logger) LogMessageFromError(idTemplate string, errorNumber int, me
 }
 
 // Inspect the error to see what the level is and log based on the level function.
-func LogMessageFromErrorUsingMap(idTemplate string, errorNumber int, message string, err error, details map[string]string) error {
+func LogMessageFromErrorUsingMap(idTemplate string, errorNumber int, message string, err error, details map[string]interface{}) error {
 	return logger.LogMessageFromErrorUsingMap(idTemplate, errorNumber, message, err, details)
 }
 
 // Inspect the error to see what the level is and log based on the level method.
-func (logger *Logger) LogMessageFromErrorUsingMap(idTemplate string, errorNumber int, message string, anError error, details map[string]string) error {
+func (logger *Logger) LogMessageFromErrorUsingMap(idTemplate string, errorNumber int, message string, anError error, details map[string]interface{}) error {
 	var err error = nil
 
 	messageLevel := logger.BuildMessageLevel(errorNumber, message)
@@ -270,12 +270,12 @@ func (logger *Logger) LogMessageFromErrorUsingMap(idTemplate string, errorNumber
 }
 
 // Inspect the error to see what the level is and log based on the level function.
-func LogMessageUsingMap(idTemplate string, errorNumber int, message string, details map[string]string) error {
+func LogMessageUsingMap(idTemplate string, errorNumber int, message string, details map[string]interface{}) error {
 	return logger.LogMessageUsingMap(idTemplate, errorNumber, message, details)
 }
 
 // Inspect the error to see what the level is and log based on the level method.
-func (logger *Logger) LogMessageUsingMap(idTemplate string, errorNumber int, message string, details map[string]string) error {
+func (logger *Logger) LogMessageUsingMap(idTemplate string, errorNumber int, message string, details map[string]interface{}) error {
 	var err error = nil
 	messageLevel := logger.BuildMessageLevel(errorNumber, message)
 	messageJson := logger.BuildMessageUsingMap(idTemplate, errorNumber, message, details)

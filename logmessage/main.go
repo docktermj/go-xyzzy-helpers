@@ -1,8 +1,6 @@
 // The message package formats messages into a JSON string.
 package logmessage
 
-import ()
-
 // ----------------------------------------------------------------------------
 // Types
 // ----------------------------------------------------------------------------
@@ -13,7 +11,7 @@ type Detail struct {
 }
 
 type Message struct {
-	Id      string      `json:"id",omitempty`
+	Id      string      `json:"id,omitempty"`
 	Level   string      `json:"level,omitempty"`
 	Text    string      `json:"text,omitempty"`
 	Details interface{} `json:"details,omitempty"`

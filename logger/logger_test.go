@@ -9,16 +9,6 @@ import (
 )
 
 // ----------------------------------------------------------------------------
-// Internal functions - names begin with lowercase letter
-// ----------------------------------------------------------------------------
-
-func testError(test *testing.T, err error) {
-	if err != nil {
-		assert.FailNow(test, err.Error())
-	}
-}
-
-// ----------------------------------------------------------------------------
 // Test interface functions - names begin with "Test"
 // ----------------------------------------------------------------------------
 
