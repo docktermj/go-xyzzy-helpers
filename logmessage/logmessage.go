@@ -56,8 +56,6 @@ func BuildMessage(id string, level string, text string, details ...interface{}) 
 
 	resultStruct := Message{}
 
-	// Fill optional fields.
-
 	if len(id) > 0 {
 		resultStruct.Id = id
 	}
@@ -70,16 +68,14 @@ func BuildMessage(id string, level string, text string, details ...interface{}) 
 		resultStruct.Text = text
 	}
 
-	// Construct details.
-
-	detailMap := make(map[string]string)
-	for index, value := range details {
-		detailMap[strconv.Itoa(index+1)] = stringify(value)
-	}
-
 	if len(details) > 0 {
+		detailMap := make(map[string]string)
+		for index, value := range details {
+			detailMap[strconv.Itoa(index+1)] = stringify(value)
+		}
 		resultStruct.Details = detailMap
 	}
+
 	// Convert to JSON.
 
 	result, _ := json.Marshal(resultStruct)
@@ -91,8 +87,6 @@ func BuildMessageFromError(id string, level string, text string, err error, deta
 
 	resultStruct := Message{}
 
-	// Fill optional fields.
-
 	if len(id) > 0 {
 		resultStruct.Id = id
 	}
@@ -105,14 +99,11 @@ func BuildMessageFromError(id string, level string, text string, err error, deta
 		resultStruct.Text = text
 	}
 
-	// Construct details.
-
-	detailMap := make(map[string]string)
-	for index, value := range details {
-		detailMap[strconv.Itoa(index+1)] = stringify(value)
-	}
-
 	if len(details) > 0 {
+		detailMap := make(map[string]string)
+		for index, value := range details {
+			detailMap[strconv.Itoa(index+1)] = stringify(value)
+		}
 		resultStruct.Details = detailMap
 	}
 
@@ -139,7 +130,7 @@ func BuildMessageFromError(id string, level string, text string, err error, deta
 }
 
 // Build a message given details as a map of strings.
-func BuildMessageFromErrorUsingMap(id string, level string, text string, err error, details map[string]string) string {
+func BuildMessageFromErrorUsingMap(id string, level string, text string, err error, details map[string]interface{}) string {
 
 	resultStruct := Message{}
 
@@ -158,7 +149,11 @@ func BuildMessageFromErrorUsingMap(id string, level string, text string, err err
 	}
 
 	if len(details) > 0 {
-		resultStruct.Details = details
+		detailMap := make(map[string]string)
+		for index, value := range details {
+			detailMap[index] = stringify(value)
+		}
+		resultStruct.Details = detailMap
 	}
 
 	// Nest prior Error message.
@@ -183,7 +178,7 @@ func BuildMessageFromErrorUsingMap(id string, level string, text string, err err
 }
 
 // Build a message given details as a map of strings.
-func BuildMessageUsingMap(id string, level string, text string, details map[string]string) string {
+func BuildMessageUsingMap(id string, level string, text string, details map[string]interface{}) string {
 
 	resultStruct := Message{}
 
@@ -202,7 +197,11 @@ func BuildMessageUsingMap(id string, level string, text string, details map[stri
 	}
 
 	if len(details) > 0 {
-		resultStruct.Details = details
+		detailMap := make(map[string]string)
+		for index, value := range details {
+			detailMap[index] = stringify(value)
+		}
+		resultStruct.Details = detailMap
 	}
 
 	// Convert to JSON.

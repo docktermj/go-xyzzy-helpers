@@ -75,9 +75,10 @@ func TestBuildMessageWithTest(test *testing.T) {
 }
 
 func TestBuildMessageUsingMap(test *testing.T) {
-	detailsMap := map[string]string{
+	detailsMap := map[string]interface{}{
 		"FirstVariable":  "First value",
 		"SecondVariable": "Second value",
+		"TestClass":      test,
 	}
 	actual := BuildMessageUsingMap("A", "B", "C", detailsMap)
 	fmt.Println(actual)
@@ -91,7 +92,7 @@ func TestParseMessage(test *testing.T) {
 }
 
 func TestParseMessageUsingMap(test *testing.T) {
-	detailsMap := map[string]string{
+	detailsMap := map[string]interface{}{
 		"FirstVariable":  "First value",
 		"SecondVariable": "Second value",
 	}
