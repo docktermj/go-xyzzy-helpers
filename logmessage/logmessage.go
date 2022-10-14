@@ -66,16 +66,21 @@ func BuildMessage(id string, level string, text string, details ...interface{}) 
 
 	if len(text) > 0 {
 		if isJson(text) {
-			resultStruct.TextJson = jsonAsInterface(text)
+			resultStruct.Text = jsonAsInterface(text)
 		} else {
 			resultStruct.Text = text
 		}
 	}
 
 	if len(details) > 0 {
-		detailMap := make(map[string]string)
+		detailMap := make(map[string]interface{})
 		for index, value := range details {
-			detailMap[strconv.Itoa(index+1)] = stringify(value)
+			valueAsString := stringify(value)
+			if isJson(valueAsString) {
+				detailMap[strconv.Itoa(index+1)] = jsonAsInterface(valueAsString)
+			} else {
+				detailMap[strconv.Itoa(index+1)] = valueAsString
+			}
 		}
 		resultStruct.Details = detailMap
 	}
@@ -101,16 +106,21 @@ func BuildMessageFromError(id string, level string, text string, err error, deta
 
 	if len(text) > 0 {
 		if isJson(text) {
-			resultStruct.TextJson = jsonAsInterface(text)
+			resultStruct.Text = jsonAsInterface(text)
 		} else {
 			resultStruct.Text = text
 		}
 	}
 
 	if len(details) > 0 {
-		detailMap := make(map[string]string)
+		detailMap := make(map[string]interface{})
 		for index, value := range details {
-			detailMap[strconv.Itoa(index+1)] = stringify(value)
+			valueAsString := stringify(value)
+			if isJson(valueAsString) {
+				detailMap[strconv.Itoa(index+1)] = jsonAsInterface(valueAsString)
+			} else {
+				detailMap[strconv.Itoa(index+1)] = valueAsString
+			}
 		}
 		resultStruct.Details = detailMap
 	}
@@ -154,16 +164,21 @@ func BuildMessageFromErrorUsingMap(id string, level string, text string, err err
 
 	if len(text) > 0 {
 		if isJson(text) {
-			resultStruct.TextJson = jsonAsInterface(text)
+			resultStruct.Text = jsonAsInterface(text)
 		} else {
 			resultStruct.Text = text
 		}
 	}
 
 	if len(details) > 0 {
-		detailMap := make(map[string]string)
+		detailMap := make(map[string]interface{})
 		for index, value := range details {
-			detailMap[index] = stringify(value)
+			valueAsString := stringify(value)
+			if isJson(valueAsString) {
+				detailMap[index] = jsonAsInterface(valueAsString)
+			} else {
+				detailMap[index] = valueAsString
+			}
 		}
 		resultStruct.Details = detailMap
 	}
@@ -206,16 +221,21 @@ func BuildMessageUsingMap(id string, level string, text string, details map[stri
 
 	if len(text) > 0 {
 		if isJson(text) {
-			resultStruct.TextJson = jsonAsInterface(text)
+			resultStruct.Text = jsonAsInterface(text)
 		} else {
 			resultStruct.Text = text
 		}
 	}
 
 	if len(details) > 0 {
-		detailMap := make(map[string]string)
+		detailMap := make(map[string]interface{})
 		for index, value := range details {
-			detailMap[index] = stringify(value)
+			valueAsString := stringify(value)
+			if isJson(valueAsString) {
+				detailMap[index] = jsonAsInterface(valueAsString)
+			} else {
+				detailMap[index] = valueAsString
+			}
 		}
 		resultStruct.Details = detailMap
 	}
