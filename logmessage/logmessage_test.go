@@ -74,6 +74,12 @@ func TestBuildMessageWithTest(test *testing.T) {
 	fmt.Println(actual)
 }
 
+func TestBuildMessageWithJsonText(test *testing.T) {
+	jsonText := `{"SOCIAL_HANDLE": "flavorh", "DATE_OF_BIRTH": "4/8/1983", "ADDR_STATE": "LA"}`
+	actual := BuildMessage("A", "myLevel", jsonText, test)
+	fmt.Println(actual)
+}
+
 func TestBuildMessageUsingMap(test *testing.T) {
 	detailsMap := map[string]interface{}{
 		"FirstVariable":  "First value",

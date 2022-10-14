@@ -65,7 +65,11 @@ func BuildMessage(id string, level string, text string, details ...interface{}) 
 	}
 
 	if len(text) > 0 {
-		resultStruct.Text = text
+		if isJson(text) {
+			resultStruct.TextJson = jsonAsInterface(text)
+		} else {
+			resultStruct.Text = text
+		}
 	}
 
 	if len(details) > 0 {
@@ -96,7 +100,11 @@ func BuildMessageFromError(id string, level string, text string, err error, deta
 	}
 
 	if len(text) > 0 {
-		resultStruct.Text = text
+		if isJson(text) {
+			resultStruct.TextJson = jsonAsInterface(text)
+		} else {
+			resultStruct.Text = text
+		}
 	}
 
 	if len(details) > 0 {
@@ -145,7 +153,11 @@ func BuildMessageFromErrorUsingMap(id string, level string, text string, err err
 	}
 
 	if len(text) > 0 {
-		resultStruct.Text = text
+		if isJson(text) {
+			resultStruct.TextJson = jsonAsInterface(text)
+		} else {
+			resultStruct.Text = text
+		}
 	}
 
 	if len(details) > 0 {
@@ -193,7 +205,11 @@ func BuildMessageUsingMap(id string, level string, text string, details map[stri
 	}
 
 	if len(text) > 0 {
-		resultStruct.Text = text
+		if isJson(text) {
+			resultStruct.TextJson = jsonAsInterface(text)
+		} else {
+			resultStruct.Text = text
+		}
 	}
 
 	if len(details) > 0 {
