@@ -11,9 +11,10 @@ type Detail struct {
 }
 
 type Message struct {
-	Id      string      `json:"id,omitempty"`
-	Level   string      `json:"level,omitempty"`
-	Text    string      `json:"text,omitempty"`
-	Details interface{} `json:"details,omitempty"`
-	Error   interface{} `json:"error,omitempty"`
+	Id       string      `json:"id,omitempty"`
+	Level    string      `json:"level,omitempty"`
+	Text     string      `json:"text,omitempty"`
+	TextJson interface{} `json:"textJson,omitempty"`
+	Details  interface{} `json:"details,omitempty"`
+	Error    interface{} `json:"error,omitempty"`
 }
