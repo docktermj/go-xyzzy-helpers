@@ -90,6 +90,18 @@ func TestBuildMessageUsingMap(test *testing.T) {
 	fmt.Println(actual)
 }
 
+func TestBuildMessageUsingMapWithJson(test *testing.T) {
+	jsonData := `{"SOCIAL_HANDLE": "flavorh", "DATE_OF_BIRTH": "4/8/1983", "ADDR_STATE": "LA"}`
+	detailsMap := map[string]interface{}{
+		"FirstVariable":  "First value",
+		"SecondVariable": "Second value",
+		"TestClass":      test,
+		"JSON":           jsonData,
+	}
+	actual := BuildMessageUsingMap("A", "B", "C", detailsMap)
+	fmt.Println(actual)
+}
+
 func TestParseMessage(test *testing.T) {
 	message := BuildMessage("A", "B", "C", "D")
 	parsedMessage := ParseMessage(message)
