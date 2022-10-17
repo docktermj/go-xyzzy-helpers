@@ -69,7 +69,7 @@ var MessageLevelMap = map[int]string{
 }
 
 var SenzingErrorsMap = map[string]string{
-	"0002E":  "error",
+	"0002E":  "info",
 	"0007E":  "error",
 	"0023E":  "error",
 	"0024E":  "error",
